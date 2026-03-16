@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlights — Branding Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0A0A0A; font-family: sans-serif; padding: 40px 32px; color: #F5EDE8; }
+  .guide { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; background: linear-gradient(135deg, #E64B32, #6E1226); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: #8C7570; font-size: 13px; margin-bottom: 48px; }
+  .section-title { color: #8C7570; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 40px 0 16px; }
+  .card { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 12px; }
+
+  /* Colors */
+  .colors { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+  .color-swatch { border-radius: 12px; overflow: hidden; }
+  .swatch-block { height: 80px; }
+  .swatch-info { background: #141414; padding: 10px 12px; border: 1px solid rgba(255,255,255,0.06); border-top: none; border-radius: 0 0 12px 12px; }
+  .swatch-name { font-size: 12px; font-weight: 600; color: #F5EDE8; margin-bottom: 2px; }
+  .swatch-hex { font-size: 11px; color: #8C7570; font-family: monospace; display: flex; justify-content: space-between; align-items: center; }
+  .copy-btn { background: rgba(230,75,50,0.15); border: none; color: #E64B32; font-size: 10px; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+  .copy-btn:hover { background: rgba(230,75,50,0.3); }
+
+  /* Typography */
+  .type-sample { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .type-sample:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .type-label { font-size: 11px; color: #8C7570; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .type-spec { font-size: 11px; color: #8C7570; margin-top: 4px; font-family: monospace; }
+
+  /* Logo */
+  .logo-container { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .logo-box { background: #0A0A0A; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; display: flex; align-items: center; justify-content: center; }
+  .logo-box.light { background: #FAE8D0; }
+
+  /* Gradient */
+  .gradient-bar { height: 60px; border-radius: 12px; background: linear-gradient(135deg, #E64B32, #6E1226); margin-bottom: 8px; }
+  .gradient-spec { font-size: 12px; color: #8C7570; font-family: monospace; }
+
+  /* Categories */
+  .categories { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+  .cat-pill { background: #141414; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px 14px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .cat-pill span { color: #8C7570; font-size: 12px; }
+
+  /* Don'ts */
+  .dont { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: rgba(230,75,50,0.06); border-left: 3px solid #E64B32; border-radius: 0 8px 8px 0; margin-bottom: 8px; font-size: 13px; color: #F5EDE8; line-height: 1.6; }
+  .do { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: rgba(30,180,100,0.06); border-left: 3px solid #1EB464; border-radius: 0 8px 8px 0; margin-bottom: 8px; font-size: 13px; color: #F5EDE8; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="guide">
+
+  <h1>Highlights</h1>
+  <div class="subtitle">Branding Guide — v1.0</div>
+
+  <!-- LOGO -->
+  <div class="section-title">Logo</div>
+  <div class="card">
+    <div class="logo-container">
+      <div>
+        <div class="type-label" style="margin-bottom:12px">Fond sombre</div>
+        <div class="logo-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#E64B32"/>
+                <stop offset="100%" stop-color="#6E1226"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="22" fill="#0A0A0A"/>
+            <path d="M 22 8 L 78 8 Q 83 8 83 13 L 83 88 Q 83 93 78 91 L 51 76 L 24 91 Q 19 93 19 88 L 19 13 Q 19 8 24 8 Z" fill="url(#g1)"/>
+            <path d="M 51 26 L 55.5 39 L 69 43 L 55.5 47 L 51 60 L 46.5 47 L 33 43 L 46.5 39 Z" fill="#FAE8D0" opacity="0.92"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="type-label" style="margin-bottom:12px">Fond clair</div>
+        <div class="logo-box light">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#E64B32"/>
+                <stop offset="100%" stop-color="#6E1226"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="22" fill="#FAE8D0"/>
+            <path d="M 22 8 L 78 8 Q 83 8 83 13 L 83 88 Q 83 93 78 91 L 51 76 L 24 91 Q 19 93 19 88 L 19 13 Q 19 8 24 8 Z" fill="url(#g2)"/>
+            <path d="M 51 26 L 55.5 39 L 69 43 L 55.5 47 L 51 60 L 46.5 47 L 33 43 L 46.5 39 Z" fill="#0A0A0A" opacity="0.92"/>
+          </svg>
+        </div>
+      </div>
+      <div style="flex:1; min-width:200px;">
+        <div class="type-label" style="margin-bottom:8px">Règles d'usage</div>
+        <div class="do">✓ Toujours sur fond sombre ou crème</div>
+        <div class="dont">✗ Jamais sur fond coloré ou photo</div>
+        <div class="dont">✗ Jamais déformé ou pivoté</div>
+        <div class="dont">✗ Jamais sans espace autour</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COULEURS -->
+  <div class="section-title">Palette de couleurs</div>
+  <div class="colors">
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#E64B32;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Coral</div>
+        <div class="swatch-hex">#E64B32 <button class="copy-btn" onclick="navigator.clipboard.writeText('#E64B32')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#6E1226;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Bordeaux</div>
+        <div class="swatch-hex">#6E1226 <button class="copy-btn" onclick="navigator.clipboard.writeText('#6E1226')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#0A0A0A;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Fond principal</div>
+        <div class="swatch-hex">#0A0A0A <button class="copy-btn" onclick="navigator.clipboard.writeText('#0A0A0A')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#141414;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Fond cards</div>
+        <div class="swatch-hex">#141414 <button class="copy-btn" onclick="navigator.clipboard.writeText('#141414')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#FAE8D0;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Crème accent</div>
+        <div class="swatch-hex">#FAE8D0 <button class="copy-btn" onclick="navigator.clipboard.writeText('#FAE8D0')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#F5EDE8;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Texte primaire</div>
+        <div class="swatch-hex">#F5EDE8 <button class="copy-btn" onclick="navigator.clipboard.writeText('#F5EDE8')">Copier</button></div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#8C7570;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Texte secondaire</div>
+        <div class="swatch-hex">#8C7570 <button class="copy-btn" onclick="navigator.clipboard.writeText('#8C7570')">Copier</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉGRADÉ -->
+  <div class="section-title">Dégradé signature</div>
+  <div class="card">
+    <div class="gradient-bar"></div>
+    <div class="gradient-spec">linear-gradient(135deg, #E64B32, #6E1226)</div>
+    <div style="margin-top:8px; font-size:12px; color:#8C7570;">Utilisé sur : logo texte, bouton principal, barres de progression, accents</div>
+  </div>
+
+  <!-- TYPOGRAPHIE -->
+  <div class="section-title">Typographie</div>
+  <div class="card">
+    <div class="type-sample">
+      <div class="type-label">Titre principal</div>
+      <div style="font-size:28px; font-weight:700; letter-spacing:-0.5px;">Mes highlights 2025</div>
+      <div class="type-spec">Inter · 28px · 700 · letter-spacing -0.5px</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Titre de section</div>
+      <div style="font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#8C7570;">Catégories</div>
+      <div class="type-spec">Inter · 11px · 600 · uppercase · letter-spacing 2px · #8C7570</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Nom de catégorie</div>
+      <div style="font-size:16px; font-weight:600;">Soirée de gars</div>
+      <div class="type-spec">Inter · 16px · 600</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Texte secondaire</div>
+      <div style="font-size:13px; color:#8C7570;">12 highlights · Dernière entrée il y a 3 jours</div>
+      <div class="type-spec">Inter · 13px · 400 · #8C7570</div>
+    </div>
+  </div>
+
+  <!-- CATÉGORIES -->
+  <div class="section-title">Catégories</div>
+  <div class="card">
+    <div class="categories">
+      <div class="cat-pill">👨‍👩‍👧 Famille</div>
+      <div class="cat-pill">🍺 Soirée de gars</div>
+      <div class="cat-pill">👯 Soirée de filles</div>
+      <div class="cat-pill">🧭 Nouvelle aventure</div>
+      <div class="cat-pill">✈️ Voyage</div>
+      <div class="cat-pill">🎵 Concert / DJ set</div>
+      <div class="cat-pill">💼 Événement pro</div>
+      <div class="cat-pill">🤝 Rencontre</div>
+      <div class="cat-pill">🌿 Temps seul / nature</div>
+      <div class="cat-pill">✦ Autre</div>
+    </div>
+  </div>
+
+  <!-- RÈGLES UI -->
+  <div class="section-title">Règles UI</div>
+  <div class="card">
+    <div class="do">✓ Border-radius minimum 12px sur toutes les cards</div>
+    <div class="do">✓ Transitions 0.2s ease sur tous les éléments interactifs</div>
+    <div class="do">✓ Hover sur cards : translateY(-2px) + border coral</div>
+    <div class="do">✓ Dark mode uniquement</div>
+    <div class="dont">✗ Jamais de jaune ou d'or dans l'interface</div>
+    <div class="dont">✗ Jamais de fond blanc ou clair</div>
+    <div class="dont">✗ Jamais plus de 2 niveaux de hiérarchie visuelle par écran</div>
+  </div>
+
+  <div style="margin-top:48px; text-align:center; color:#8C7570; font-size:12px;">
+    Highlights Branding Guide · v1.0 · 2025
+  </div>
+
+</div>
+</body>
+</html>
