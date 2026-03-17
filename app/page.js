@@ -143,7 +143,9 @@ export default function HomePage() {
           <SectionTitle>Catégories</SectionTitle>
           <div className="hl-cat-grid">
             {categoryCounts.map((cat) => (
-              <CategoryCard key={cat.id} cat={cat} maxCount={maxCount} isTop={cat.id === topCategory?.id} isCelebrated={celebratedCat === cat.value} />
+              <a key={cat.id} href={`/categories/${cat.value}`} style={{ textDecoration: 'none', display: 'block' }}>
+                <CategoryCard cat={cat} maxCount={maxCount} isTop={cat.id === topCategory?.id} isCelebrated={celebratedCat === cat.value} />
+              </a>
             ))}
           </div>
         </section>
@@ -252,7 +254,7 @@ function CategoryCard({ cat, maxCount, isTop, isCelebrated }) {
       justifyContent: 'space-between',
       overflow: 'hidden',
       boxShadow: isTop || isCelebrated ? '0 0 20px rgba(230,75,50,0.15)' : 'none',
-      cursor: 'default',
+      cursor: 'pointer',
       transition: 'all 0.2s ease',
       animation: isCelebrated ? 'cat-celebrate 1.5s ease forwards' : 'none',
     }}

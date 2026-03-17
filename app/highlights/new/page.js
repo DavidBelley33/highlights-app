@@ -26,6 +26,8 @@ export default function NewHighlightPage() {
 
   useEffect(() => {
     getCategories().then(setCategories).catch(console.error)
+    const preset = new URLSearchParams(window.location.search).get('category')
+    if (preset) setForm((f) => ({ ...f, category: preset }))
   }, [])
 
   function handleChange(e) {
