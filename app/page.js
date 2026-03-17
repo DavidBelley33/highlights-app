@@ -143,7 +143,9 @@ export default function HomePage() {
           <SectionTitle>Catégories</SectionTitle>
           <div className="hl-cat-grid">
             {categoryCounts.map((cat) => (
-              <CategoryCard key={cat.id} cat={cat} maxCount={maxCount} isTop={cat.id === topCategory?.id} isCelebrated={celebratedCat === cat.value} href={`/categories/${cat.value}`} />
+              <div key={cat.id} onClick={() => { window.location.href = `/categories/${cat.value}` }} style={{ cursor: 'pointer' }}>
+                <CategoryCard cat={cat} maxCount={maxCount} isTop={cat.id === topCategory?.id} isCelebrated={celebratedCat === cat.value} />
+              </div>
             ))}
           </div>
         </section>
@@ -237,11 +239,10 @@ function StatCard({ icon, value, label, isText }) {
   )
 }
 
-function CategoryCard({ cat, maxCount, isTop, isCelebrated, href }) {
+function CategoryCard({ cat, maxCount, isTop, isCelebrated }) {
   const pct = maxCount > 0 ? (cat.count / maxCount) * 100 : 0
-  const El = href ? 'a' : 'div'
   return (
-    <El {...(href ? { href } : {})} style={{
+    <div style={{
       position: 'relative',
       background: '#141414',
       border: `1px solid ${isTop || isCelebrated ? 'rgba(230,75,50,0.4)' : 'rgba(255,255,255,0.06)'}`,
@@ -256,7 +257,6 @@ function CategoryCard({ cat, maxCount, isTop, isCelebrated, href }) {
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       animation: isCelebrated ? 'cat-celebrate 1.5s ease forwards' : 'none',
-      textDecoration: 'none',
     }}
     onMouseOver={(e) => {
       e.currentTarget.style.transform = 'translateY(-2px)'
@@ -311,7 +311,7 @@ function CategoryCard({ cat, maxCount, isTop, isCelebrated, href }) {
           100% { opacity: 0; transform: translateY(-18px); }
         }
       `}</style>
-    </El>
+    </div>
   )
 }
 
