@@ -410,10 +410,10 @@ function HighlightTable({ years, byYear, categories }) {
           </p>
           <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'separate', borderSpacing: '0 4px', tableLayout: 'fixed' }}>
             <colgroup>
-              <col style={{ width: '110px' }} />
-              <col />
               <col style={{ width: '150px' }} />
-              <col style={{ width: '220px' }} />
+              <col />
+              <col style={{ width: '190px' }} />
+              <col style={{ width: '180px' }} />
               <col style={{ width: '40px' }} />
             </colgroup>
             <thead>
