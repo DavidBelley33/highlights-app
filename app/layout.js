@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import ExportButton from '@/components/ExportButton'
+import LogoutButton from '@/components/LogoutButton'
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
             <div className="hl-header-right">
               <a href="/categories" className="hl-nav-link hl-nav-hide-mobile">Catégories</a>
               <span className="hl-nav-hide-mobile"><ExportButton /></span>
+              <span className="hl-nav-hide-mobile"><LogoutButton /></span>
               <a href="/highlights/new" className="hl-cta">+ Nouveau</a>
             </div>
           </div>

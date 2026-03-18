@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlights — Stratégie de pricing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0A0A0A; font-family: sans-serif; padding: 40px 32px; color: #F5EDE8; }
+  .guide { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; background: linear-gradient(135deg, #E64B32, #6E1226); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: #8C7570; font-size: 13px; margin-bottom: 40px; }
+  .section-title { color: #8C7570; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 36px 0 14px; }
+  .card { background: #141414; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; margin-bottom: 12px; }
+  .card-title { font-size: 15px; font-weight: 600; color: #F5EDE8; margin-bottom: 6px; }
+  .card-sub { font-size: 13px; color: #8C7570; line-height: 1.6; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat { background: #141414; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; }
+  .stat-num { font-size: 28px; font-weight: 700; color: #E64B32; margin-bottom: 4px; }
+  .stat-label { font-size: 11px; color: #8C7570; text-transform: uppercase; letter-spacing: 1px; }
+  .tag { display: inline-block; background: rgba(230,75,50,0.12); color: #E64B32; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 6px; }
+  .tag.green { background: rgba(30,180,100,0.12); color: #1EB464; }
+  .tag.gray { background: rgba(255,255,255,0.06); color: #8C7570; }
+  .note { background: rgba(230,75,50,0.06); border-left: 3px solid #E64B32; border-radius: 0 8px 8px 0; padding: 14px 18px; font-size: 13px; color: #FAE8D0; line-height: 1.7; margin-top: 12px; }
+  .note.green { background: rgba(30,180,100,0.06); border-left-color: #1EB464; }
+  .plan { border-radius: 16px; padding: 24px; margin-bottom: 12px; }
+  .plan.free { background: #141414; border: 1px solid rgba(255,255,255,0.06); }
+  .plan.founder { background: #141414; border: 1px solid rgba(230,75,50,0.4); box-shadow: 0 0 24px rgba(230,75,50,0.1); }
+  .plan.standard { background: #141414; border: 1px solid rgba(255,255,255,0.1); }
+  .plan-price { font-size: 32px; font-weight: 700; margin: 8px 0 4px; }
+  .plan-price span { font-size: 14px; font-weight: 400; color: #8C7570; }
+  .plan-name { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #8C7570; }
+  .plan-feature { font-size: 13px; color: #F5EDE8; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
+  .plan-feature:last-child { border-bottom: none; }
+  .plan-feature::before { content: "✓ "; color: #E64B32; font-weight: 700; }
+  .plan-feature.off { color: #8C7570; }
+  .plan-feature.off::before { content: "✗ "; color: #444; }
+  .badge { background: linear-gradient(135deg, #E64B32, #6E1226); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+  .badge.gray { background: #222; color: #8C7570; }
+  .promo { background: #0A0A0A; border: 1px dashed rgba(230,75,50,0.3); border-radius: 8px; padding: 10px 14px; font-family: monospace; font-size: 14px; color: #E64B32; letter-spacing: 2px; display: inline-block; margin-top: 10px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 13px; }
+  th { color: #8C7570; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 8px 14px; text-align: left; }
+  td { background: #141414; padding: 12px 14px; color: #F5EDE8; }
+  td:first-child { border-radius: 8px 0 0 8px; color: #E64B32; font-weight: 600; }
+  td:last-child { border-radius: 0 8px 8px 0; }
+  .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .footer { margin-top: 48px; text-align: center; color: #8C7570; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="guide">
+
+  <h1>Stratégie de pricing</h1>
+  <div class="subtitle">Highlights App — Document de réflexion · v3.0 · 2025</div>
+
+
+  <!-- PROPOSITION DE VALEUR -->
+  <div class="section-title">La vraie proposition de valeur</div>
+  <div class="card">
+    <div class="card-title" style="font-size:18px; margin-bottom:12px;">Ce n'est pas juste un journal de souvenirs.</div>
+    <div class="card-sub" style="font-size:14px; line-height:1.8; color:#F5EDE8;">
+      Highlights est un <strong style="color:#E64B32">miroir de ta vie</strong>. Semaine après semaine, tu captures ce qui t'a vraiment marqué. Et tranquillement, sans t'en rendre compte, tu bâtis une image claire de ce qui compte vraiment pour toi.
+    </div>
+  </div>
+  <div class="row" style="margin-top:0">
+    <div class="card">
+      <div style="font-size:24px; margin-bottom:12px;">🔍</div>
+      <div class="card-title">Voir ce qui compte vraiment</div>
+      <div class="card-sub" style="margin-top:6px">En juin, tu regardes ton dashboard et tu réalises : 18 highlights "Temps entre amis", 2 highlights "Famille". Est-ce que c'est la vie que tu veux vivre ? Highlights te pose cette question sans juger.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:24px; margin-bottom:12px;">⚖️</div>
+      <div class="card-title">Prioriser ce qui manque</div>
+      <div class="card-sub" style="margin-top:6px">Quand tu vois qu'une sphère de ta vie est vide depuis des mois, tu peux décider consciemment de changer ça. Pas par culpabilité — par choix. C'est ça, vivre intentionnellement.</div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:0">
+    <div class="card">
+      <div style="font-size:24px; margin-bottom:12px;">🧠</div>
+      <div class="card-title">Se connaître mieux</div>
+      <div class="card-sub" style="margin-top:6px">Les patterns qui émergent sur une année te révèlent qui tu es vraiment — pas qui tu penses être. C'est du développement personnel, sans les buzzwords.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:24px; margin-bottom:12px;">💎</div>
+      <div class="card-title">Bâtir des souvenirs qui durent</div>
+      <div class="card-sub" style="margin-top:6px">Dans 5 ans, tu vas pouvoir rouvrir 2025 et revivre chaque moment fort. Pas juste des photos dans un album — des moments avec du contexte, des émotions, une histoire.</div>
+    </div>
+  </div>
+  <div class="note green" style="margin-top:4px">
+    ✓ Highlights c'est un outil de conscience de soi déguisé en app de souvenirs.<br>
+    ✓ Les gens qui comprennent ça ne paient pas 29$ — ils en parlent à leurs amis.<br>
+    ✓ Le recap annuel est la cerise sur le sundae. Le vrai sundae, c'est le miroir quotidien de ta vie.
+  </div>
+
+  <!-- MODÈLE FINAL -->
+  <div class="section-title">Modèle final — 2 plans</div>
+  <div class="plans-grid">
+
+    <div class="plan founder">
+      <div class="plan-name">Fondateur <span class="badge">100 premiers — accès à vie</span></div>
+      <div class="plan-price" style="background: linear-gradient(135deg, #E64B32, #6E1226); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">29$ <span style="-webkit-text-fill-color:#8C7570">/à vie</span></div>
+      <div style="margin-top:16px">
+        <div class="plan-feature">Photos sur les highlights</div>
+        <div class="plan-feature">Recap annuel Wrapped</div>
+        <div class="plan-feature">Catégorie secondaire</div>
+        <div class="plan-feature">Export PDF / données</div>
+        <div class="plan-feature">Stats avancées</div>
+        <div class="plan-feature">Accès à vie — jamais de frais récurrents</div>
+      </div>
+    </div>
+
+    <div class="plan standard">
+      <div class="plan-name">Standard <span class="badge gray">Après les 100</span></div>
+      <div class="plan-price">29$ <span>/an</span></div>
+      <div style="margin-top:16px">
+        <div class="plan-feature">Photos sur les highlights</div>
+        <div class="plan-feature">Recap annuel Wrapped</div>
+        <div class="plan-feature">Catégorie secondaire</div>
+        <div class="plan-feature">Export PDF / données</div>
+        <div class="plan-feature">Stats avancées</div>
+        <div class="plan-feature off">Accès à vie</div>
+        <div class="plan-feature off">Priorité nouvelles features</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CODES PROMO -->
+  <div class="section-title">Codes promo — Accès gratuit interne</div>
+  <div class="card">
+    <div class="card-title">Toi + ta conjointe — accès Premium gratuit à vie</div>
+    <div class="card-sub" style="margin-top:6px">Ces codes donnent 100% de rabais sur le plan Fondateur. À implémenter dans Stripe au moment du lancement.</div>
+    <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px; color:#8C7570; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Code — David</div>
+        <div class="promo">DAVID100</div>
+      </div>
+      <div>
+        <div style="font-size:11px; color:#8C7570; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Code — Conjointe</div>
+        <div class="promo">KARINE100</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:14px">⚠️ Changer les noms des codes si nécessaire avant le lancement. Ces codes ne sont pas encore actifs — ils seront créés dans Stripe lors de l'intégration des paiements.</div>
+  </div>
+
+  <!-- COÛTS & RENTABILITÉ -->
+  <div class="section-title">Coûts fixes & seuil de rentabilité</div>
+  <div class="row">
+    <div class="card">
+      <div class="card-title">Infrastructure mensuelle</div>
+      <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px;">
+          <span style="color:#8C7570">Supabase Pro</span>
+          <span>25$/mois</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:13px;">
+          <span style="color:#8C7570">Vercel Pro</span>
+          <span>20$/mois</span>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:8px; display:flex; justify-content:space-between; font-size:14px; font-weight:600;">
+          <span style="color:#8C7570">Total</span>
+          <span style="color:#E64B32">45$/mois</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Seuil de rentabilité</div>
+      <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px;">
+          <span style="color:#8C7570">Plan Fondateur (29$ one-time)</span>
+          <span>16 ventes = couvert 1 an</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:13px;">
+          <span style="color:#8C7570">Plan Standard (29$/an)</span>
+          <span>19 abonnés = couvert</span>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:8px; font-size:13px; color:#1EB464;">
+          ✓ Seuil très atteignable
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTIONS -->
+  <div class="section-title">Projections de revenus</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Scénario</th>
+        <th>Fondateurs (29$ one-time)</th>
+        <th>Standard (29$/an)</th>
+        <th>Revenus an 1</th>
+        <th>Profit net</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Minimal</td>
+        <td>20 users</td>
+        <td>10 users</td>
+        <td>870$</td>
+        <td><span class="tag green">+330$</span></td>
+      </tr>
+      <tr>
+        <td>Réaliste</td>
+        <td>100 users</td>
+        <td>50 users</td>
+        <td>4 350$</td>
+        <td><span class="tag green">+3 810$</span></td>
+      </tr>
+      <tr>
+        <td>Optimiste</td>
+        <td>100 users</td>
+        <td>300 users</td>
+        <td>11 700$</td>
+        <td><span class="tag green">+11 160$</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- POURQUOI PAS DE MENSUEL -->
+  <div class="section-title">Pourquoi pas de plan gratuit ni d'essai</div>
+  <div class="note green">
+    ✓ La valeur de l'app se révèle sur une année complète — pas en 30 jours d'essai.<br>
+    ✓ Pas de plan gratuit = une seule expérience à construire, et elle est excellente.<br>
+    ✓ Les utilisateurs qui paient sans essai sont les meilleurs utilisateurs — déjà convaincus.<br>
+    ✓ Le marketing et l'onboarding remplacent l'essai gratuit — la page de vente doit tout expliquer.<br>
+    ✓ 29$/an = 2.42$/mois — moins qu'un café par mois pour garder ses meilleurs souvenirs.
+  </div>
+
+  <!-- QUESTIONS OUVERTES -->
+  <div class="section-title">Questions ouvertes</div>
+  <div class="card" style="margin-bottom:8px">
+    <div class="card-title">1. Quand lancer le plan payant ?</div>
+    <div class="card-sub" style="margin-top:6px">Attendre que le recap annuel soit construit — c'est la feature qui justifie le paiement. Sans elle, difficile de convaincre quelqu'un de payer.</div>
+  </div>
+  <div class="card" style="margin-bottom:8px">
+    <div class="card-title">2. Comment trouver les 100 fondateurs ?</div>
+    <div class="card-sub" style="margin-top:6px">Réseau personnel, Reddit (r/productivity, r/selfimprovement), Product Hunt, Instagram. Le concept "marquer ses meilleurs moments" est universel et facile à expliquer.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">3. Plan couple / famille plus tard ?</div>
+    <div class="card-sub" style="margin-top:6px">Si tu ajoutes un mode partagé, un plan "Duo" à 39$/an ou 49$ à vie pourrait avoir de la valeur. À considérer en version 2.0.</div>
+  </div>
+
+  <!-- ROADMAP MONÉTISATION -->
+  <div class="section-title">Roadmap vers la monétisation</div>
+  <div class="card">
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <span style="color:#E64B32; font-weight:700; min-width:80px; font-size:12px;">Phase 1</span>
+        <span class="card-sub">Toi + conjointe — valider l'usage réel, affiner les features</span>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <span style="color:#E64B32; font-weight:700; min-width:80px; font-size:12px;">Phase 2</span>
+        <span class="card-sub">Quelques amis proches — bêta fermée, feedback, codes promo gratuits</span>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <span style="color:#E64B32; font-weight:700; min-width:80px; font-size:12px;">Phase 3</span>
+        <span class="card-sub">Construire le recap Wrapped — la feature qui justifie le paiement</span>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <span style="color:#E64B32; font-weight:700; min-width:80px; font-size:12px;">Phase 4</span>
+        <span class="card-sub">Intégrer Stripe + lancer l'offre Fondateur à 29$ — 100 premiers accès à vie</span>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <span style="color:#E64B32; font-weight:700; min-width:80px; font-size:12px;">Phase 5</span>
+        <span class="card-sub">Après les 100 fondateurs → plan Standard à 29$/an en continu</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Highlights App · Stratégie de pricing · v3.0 · 2025 · Document confidentiel</div>
+</div>
+</body>
+</html>
