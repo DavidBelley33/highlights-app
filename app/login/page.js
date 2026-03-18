@@ -8,8 +8,15 @@ export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPw, setShowPw] = useState(false)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  useState(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('created') === '1') setSuccess('Compte créé ! Connecte-toi maintenant.')
+  })
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -25,6 +32,8 @@ export default function LoginPage() {
       router.refresh()
     }
   }
+
+  const inputStyle = { width: '100%', background: '#141414', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#F5EDE8', outline: 'none', boxSizing: 'border-box' }
 
   return (
     <div style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
@@ -49,6 +58,11 @@ export default function LoginPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {success && (
+            <div style={{ background: 'rgba(30,180,100,0.1)', border: '1px solid rgba(30,180,100,0.3)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#1EB464' }}>
+              {success}
+            </div>
+          )}
           {error && (
             <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#f87171' }}>
               {error}
@@ -57,33 +71,20 @@ export default function LoginPage() {
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="ton@email.com"
-              style={{ width: '100%', background: '#141414', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#F5EDE8', outline: 'none', boxSizing: 'border-box' }}
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="ton@email.com" style={inputStyle} />
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Mot de passe</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="••••••••"
-              style={{ width: '100%', background: '#141414', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#F5EDE8', outline: 'none', boxSizing: 'border-box' }}
-            />
+            <div style={{ position: 'relative' }}>
+              <input type={showPw ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" style={{ ...inputStyle, paddingRight: '48px' }} />
+              <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#8C7570', fontSize: '16px', padding: 0 }}>
+                {showPw ? '🙈' : '👁️'}
+              </button>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ background: 'linear-gradient(135deg, #E64B32, #6E1226)', color: '#FAE8D0', border: 'none', borderRadius: '20px', padding: '13px', fontSize: '15px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: '4px' }}
-          >
+          <button type="submit" disabled={loading} style={{ background: 'linear-gradient(135deg, #E64B32, #6E1226)', color: '#FAE8D0', border: 'none', borderRadius: '20px', padding: '13px', fontSize: '15px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: '4px' }}>
             {loading ? 'Connexion…' : 'Se connecter'}
           </button>
         </form>

@@ -9,6 +9,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
+  const [showPw, setShowPw] = useState(false)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -30,8 +31,7 @@ export default function SignupPage() {
       setError(error.message)
       setLoading(false)
     } else {
-      router.push('/')
-      router.refresh()
+      router.push('/login?created=1')
     }
   }
 
@@ -73,19 +73,20 @@ export default function SignupPage() {
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Mot de passe</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" style={inputStyle} />
+            <div style={{ position: 'relative' }}>
+              <input type={showPw ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" style={{ ...inputStyle, paddingRight: '48px' }} />
+              <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#8C7570', fontSize: '16px', padding: 0 }}>
+                {showPw ? '🙈' : '👁️'}
+              </button>
+            </div>
           </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Confirmer le mot de passe</label>
-            <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required placeholder="••••••••" style={inputStyle} />
+            <input type={showPw ? 'text' : 'password'} value={confirm} onChange={(e) => setConfirm(e.target.value)} required placeholder="••••••••" style={inputStyle} />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ background: 'linear-gradient(135deg, #E64B32, #6E1226)', color: '#FAE8D0', border: 'none', borderRadius: '20px', padding: '13px', fontSize: '15px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: '4px' }}
-          >
+          <button type="submit" disabled={loading} style={{ background: 'linear-gradient(135deg, #E64B32, #6E1226)', color: '#FAE8D0', border: 'none', borderRadius: '20px', padding: '13px', fontSize: '15px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: '4px' }}>
             {loading ? 'Création…' : 'Créer mon compte'}
           </button>
         </form>
