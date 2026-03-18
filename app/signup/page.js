@@ -6,6 +6,8 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function SignupPage() {
   const router = useRouter()
+  const [fullName, setFullName] = useState('')
+  const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -26,7 +28,13 @@ export default function SignupPage() {
     setError(null)
     setLoading(true)
     const supabase = createClient()
-    const { error } = await supabase.auth.signUp({ email, password })
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName, phone },
+      },
+    })
     if (error) {
       setError(error.message)
       setLoading(false)
@@ -65,6 +73,16 @@ export default function SignupPage() {
               {error}
             </div>
           )}
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Nom complet</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} required placeholder="David Belley" style={inputStyle} />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Téléphone</label>
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 514 000 0000" style={inputStyle} />
+          </div>
 
           <div>
             <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#8C7570', marginBottom: '6px' }}>Email</label>
