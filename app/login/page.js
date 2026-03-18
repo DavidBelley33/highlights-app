@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -13,10 +13,10 @@ export default function LoginPage() {
   const [success, setSuccess] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  useState(() => {
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('created') === '1') setSuccess('Compte créé ! Connecte-toi maintenant.')
-  })
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
