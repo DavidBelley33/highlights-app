@@ -209,4 +209,8 @@ input, select, textarea {
   .hl-col-hide-mobile {
     display: none;
   }
+
+  .hl-insight-card {
+    padding: 14px 16px !important;
+  }
 }

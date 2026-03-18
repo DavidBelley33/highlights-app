@@ -45,6 +45,108 @@ function daysSinceText(dateStr) {
   return `Il y a ${diff} jours`
 }
 
+// ─── Insight logic ────────────────────────────────────────────────────────────
+
+const MONTH_NAMES = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+
+function parseDate(str) {
+  const [y, m, d] = str.split('-').map(Number)
+  return new Date(y, m - 1, d)
+}
+
+function getMondayDate(date) {
+  const d = new Date(date)
+  const day = d.getDay()
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1)
+  d.setDate(diff)
+  d.setHours(0, 0, 0, 0)
+  return d
+}
+
+function computeInsight(highlights, categories) {
+  if (!highlights.length) {
+    return "Capture ton premier highlight de la semaine pour commencer à voir les patterns de ta vie."
+  }
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const now = new Date()
+
+  // ── Rule 1 : catégorie absente 30+ jours ──
+  const catLastDate = {}
+  highlights.forEach((h) => {
+    const d = parseDate(h.week_date)
+    if (!catLastDate[h.category] || d > catLastDate[h.category]) catLastDate[h.category] = d
+  })
+
+  let absentCat = null
+  let absentDays = 0
+  Object.entries(catLastDate).forEach(([val, lastDate]) => {
+    const days = Math.floor((today - lastDate) / 864e5)
+    if (days >= 30 && days > absentDays) { absentDays = days; absentCat = val }
+  })
+  if (absentCat) {
+    const cat = categories.find((c) => c.value === absentCat)
+    const weeks = Math.floor(absentDays / 7)
+    const label = cat ? `${cat.emoji} ${cat.label}` : absentCat
+    return `Ça fait ${weeks} semaine${weeks > 1 ? 's' : ''} sans highlight ${label}. 🌿`
+  }
+
+  // ── Rule 2 : catégorie dominante ce mois ──
+  const thisMonth = now.getMonth()
+  const thisYear = now.getFullYear()
+  const monthH = highlights.filter((h) => {
+    const d = parseDate(h.week_date)
+    return d.getMonth() === thisMonth && d.getFullYear() === thisYear
+  })
+  if (monthH.length >= 3) {
+    const counts = {}
+    monthH.forEach((h) => { counts[h.category] = (counts[h.category] || 0) + 1 })
+    const [topVal, topCount] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]
+    const pct = Math.round((topCount / monthH.length) * 100)
+    if (pct >= 60) {
+      const cat = categories.find((c) => c.value === topVal)
+      const label = cat ? `${cat.emoji} ${cat.label}` : topVal
+      return `Ce mois-ci, ${pct}% de tes moments forts impliquent ${label}.`
+    }
+  }
+
+  // ── Rule 3 : meilleure semaine ──
+  const currentMonday = getMondayDate(today)
+  const weekCounts = {}
+  highlights.forEach((h) => {
+    const ts = getMondayDate(parseDate(h.week_date)).getTime()
+    weekCounts[ts] = (weekCounts[ts] || 0) + 1
+  })
+  const currentWeekCount = weekCounts[currentMonday.getTime()] || 0
+  const pastMax = Math.max(0, ...Object.entries(weekCounts)
+    .filter(([ts]) => parseInt(ts) < currentMonday.getTime())
+    .map(([, c]) => c))
+  if (currentWeekCount > 0 && pastMax > 0 && currentWeekCount >= pastMax) {
+    return "Tu es en route pour ta meilleure semaine de l'année 🔥"
+  }
+
+  // ── Rule 4 : streak 4+ semaines ──
+  const streak = computeStreak(highlights)
+  if (streak >= 4) {
+    return `${streak} semaines consécutives de highlights. Continue comme ça 💪`
+  }
+
+  // ── Rule 5 : plus actif ce mois que le précédent ──
+  const lastMonth = thisMonth === 0 ? 11 : thisMonth - 1
+  const lastMonthYear = thisMonth === 0 ? thisYear - 1 : thisYear
+  const lastMonthH = highlights.filter((h) => {
+    const d = parseDate(h.week_date)
+    return d.getMonth() === lastMonth && d.getFullYear() === lastMonthYear
+  })
+  if (monthH.length > lastMonthH.length && lastMonthH.length > 0) {
+    return `Tu es plus actif ce mois-ci qu'en ${MONTH_NAMES[lastMonth]}. Belle énergie.`
+  }
+
+  // ── Rule 6 : défaut ──
+  return "Capture ton premier highlight de la semaine pour commencer à voir les patterns de ta vie."
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
@@ -137,6 +239,9 @@ export default function HomePage() {
         <StatCard icon="📅" value={lastHighlightText} label="dernier highlight" isText />
       </div>
 
+      {/* ── Insight ── */}
+      <InsightCard text={computeInsight(highlights, categories)} />
+
       {/* ── Category Gallery ── */}
       {categoryCounts.length > 0 && (
         <section>
@@ -196,6 +301,26 @@ export default function HomePage() {
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
+
+function InsightCard({ text }) {
+  return (
+    <div className="hl-insight-card" style={{
+      background: '#141414',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '12px',
+      padding: '16px 20px',
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '12px',
+    }}>
+      <span style={{ fontSize: '16px', color: '#E64B32', flexShrink: 0, marginTop: '1px' }}>✦</span>
+      <div>
+        <p style={{ fontSize: '14px', color: '#F5EDE8', lineHeight: 1.5, margin: 0 }}>{text}</p>
+        <p style={{ fontSize: '12px', color: '#8C7570', margin: '4px 0 0' }}>Basé sur tes highlights des 30 derniers jours</p>
+      </div>
+    </div>
+  )
+}
 
 function SectionTitle({ children, noMargin }) {
   return (
