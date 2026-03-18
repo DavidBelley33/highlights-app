@@ -408,7 +408,8 @@ function HighlightTable({ years, byYear, categories }) {
           <p style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', color: '#8C7570', marginBottom: '12px' }}>
             {year}
           </p>
-          <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'separate', borderSpacing: '0 4px', tableLayout: 'fixed' }}>
+          <div className="hl-table-wrap">
+          <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'separate', borderSpacing: '0 4px', tableLayout: 'fixed', minWidth: '560px' }}>
             <colgroup>
               <col style={{ width: '150px' }} />
               <col />
@@ -418,8 +419,14 @@ function HighlightTable({ years, byYear, categories }) {
             </colgroup>
             <thead>
               <tr>
-                {['Date', 'Titre', 'Catégorie', 'Description', ''].map((h, i) => (
-                  <th key={i} style={{
+                {[
+                  { label: 'Date', mobile: true },
+                  { label: 'Titre', mobile: true },
+                  { label: 'Catégorie', mobile: true },
+                  { label: 'Description', mobile: false },
+                  { label: '', mobile: true },
+                ].map((h, i) => (
+                  <th key={i} className={!h.mobile ? 'hl-col-hide-mobile' : ''} style={{
                     padding: '6px 16px',
                     textAlign: 'left',
                     fontSize: '11px',
@@ -428,7 +435,7 @@ function HighlightTable({ years, byYear, categories }) {
                     textTransform: 'uppercase',
                     color: '#8C7570',
                   }}>
-                    {h}
+                    {h.label}
                   </th>
                 ))}
               </tr>
@@ -442,6 +449,7 @@ function HighlightTable({ years, byYear, categories }) {
               })}
             </tbody>
           </table>
+          </div>
         </section>
       ))}
     </div>
@@ -490,7 +498,7 @@ function TableRow({ h, cat }) {
           </span>
         )}
       </td>
-      <td style={{ padding: '12px 16px', color: '#8C7570', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 0 }}>
+      <td className="hl-col-hide-mobile" style={{ padding: '12px 16px', color: '#8C7570', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 0 }}>
         {h.description ?? '—'}
       </td>
       <td style={{ padding: '12px 8px', textAlign: 'center', borderRadius: '0 8px 8px 0' }}>
