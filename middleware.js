@@ -29,7 +29,7 @@ export async function middleware(request) {
   const { pathname } = request.nextUrl
 
   // Auth pages — redirect to home if already logged in
-  if (pathname === '/login' || pathname === '/signup') {
+  if (pathname === '/login' || pathname === '/signup' || pathname === '/forgot-password' || pathname === '/reset-password') {
     if (user) return NextResponse.redirect(new URL('/', request.url))
     return supabaseResponse
   }
