@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { getHighlights, getPhotoUrl } from '@/lib/highlights'
 import { getCategories } from '@/lib/categories'
 import { formatDate } from '@/lib/constants'
+import ProductTour from '@/components/ProductTour'
 
 // ─── Stats helpers ────────────────────────────────────────────────────────────
 
@@ -156,13 +157,29 @@ export default function HomePage() {
   const [error, setError] = useState(null)
   const [view, setView] = useState('cards')
   const [celebratedCat, setCelebratedCat] = useState(null)
+  const [showTour, setShowTour] = useState(false)
 
   useEffect(() => {
     Promise.all([getHighlights(), getCategories()])
-      .then(([h, cats]) => { setHighlights(h); setCategories(cats) })
+      .then(([h, cats]) => {
+        setHighlights(h)
+        setCategories(cats)
+        if (h.length === 0 && cats.length === 0 && !localStorage.getItem('hl-tour-done')) {
+          setShowTour(true)
+        }
+      })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
   }, [])
+
+  async function handleTourComplete(categoriesCreated) {
+    localStorage.setItem('hl-tour-done', '1')
+    setShowTour(false)
+    if (categoriesCreated) {
+      const cats = await getCategories()
+      setCategories(cats)
+    }
+  }
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -192,21 +209,24 @@ export default function HomePage() {
 
   if (highlights.length === 0) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '96px 0', textAlign: 'center' }}>
-        <span style={{ fontSize: '48px' }}>✦</span>
-        <p style={{ color: '#8C7570' }}>Pas encore de highlights. Commence par en ajouter un !</p>
-        <a href="/highlights/new" style={{
-          background: 'linear-gradient(135deg, #E64B32, #6E1226)',
-          borderRadius: '20px',
-          padding: '10px 24px',
-          fontSize: '14px',
-          fontWeight: 600,
-          color: '#FAE8D0',
-          textDecoration: 'none',
-        }}>
-          + Nouveau highlight
-        </a>
-      </div>
+      <>
+        {showTour && <ProductTour onComplete={handleTourComplete} />}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '96px 0', textAlign: 'center' }}>
+          <span style={{ fontSize: '48px' }}>✦</span>
+          <p style={{ color: '#8C7570' }}>Pas encore de highlights. Commence par en ajouter un !</p>
+          <a href="/highlights/new" style={{
+            background: 'linear-gradient(135deg, #E64B32, #6E1226)',
+            borderRadius: '20px',
+            padding: '10px 24px',
+            fontSize: '14px',
+            fontWeight: 600,
+            color: '#FAE8D0',
+            textDecoration: 'none',
+          }}>
+            + Nouveau highlight
+          </a>
+        </div>
+      </>
     )
   }
 
@@ -230,6 +250,7 @@ export default function HomePage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+      {showTour && <ProductTour onComplete={handleTourComplete} />}
 
       {/* ── Stats Bar ── */}
       <div className="hl-stats-grid">
