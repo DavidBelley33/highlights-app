@@ -266,7 +266,12 @@ export default function HomePage() {
       {/* ── Category Gallery ── */}
       {categoryCounts.length > 0 && (
         <section>
-          <SectionTitle>Catégories</SectionTitle>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <SectionTitle noMargin>Catégories</SectionTitle>
+            <a href="/highlights/new" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'linear-gradient(135deg, #E64B32, #6E1226)', color: '#FAE8D0', borderRadius: '20px', padding: '8px 16px', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
+              + Nouveau
+            </a>
+          </div>
           <div className="hl-cat-grid">
             {categoryCounts.map((cat) => (
               <div key={cat.id} onClick={() => { window.location.href = `/categories/${cat.value}` }} style={{ cursor: 'pointer' }}>
