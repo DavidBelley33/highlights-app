@@ -45,6 +45,7 @@ export default function RootLayout({ children }) {
             </div>
             <div className="hl-header-right">
               <a href="/categories" className="hl-nav-link hl-nav-hide-mobile">Catégories</a>
+              <a href="/stats" className="hl-nav-link hl-nav-hide-mobile">Stats</a>
               <span className="hl-nav-hide-mobile"><ExportButton /></span>
               <span className="hl-nav-hide-mobile"><LogoutButton /></span>
               <a href="/highlights/new" className="hl-cta">+ Nouveau</a>
@@ -57,6 +58,7 @@ export default function RootLayout({ children }) {
         <nav className="hl-mobile-nav">
           <a href="/">🏠 Accueil</a>
           <a href="/categories">🏷️ Catégories</a>
+          <a href="/stats">📊 Stats</a>
           <a href="/highlights/new">✦ Nouveau</a>
         </nav>
       </body>
