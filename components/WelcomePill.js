@@ -19,6 +19,6 @@ export default function WelcomePill() {
   if (!name) return null
 
   return (
-    <a href="/profile" className="hl-week-pill" style={{ textDecoration: 'none', cursor: 'pointer' }}>Bienvenue, {name}</a>
+    <span className="hl-week-pill">Bienvenue, {name}</span>
   )
 }
