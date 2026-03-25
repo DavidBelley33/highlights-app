@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import ExportButton from '@/components/ExportButton'
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null)
@@ -241,6 +242,13 @@ export default function ProfilePage() {
           <Row label="Membre depuis" value={user?.created_at ? new Date(user.created_at).toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric' }) : '—'} />
           <Row label="Plan" value="Fondateur 🌟" />
         </div>
+      </div>
+
+      {/* ── Export ── */}
+      <div style={sectionStyle}>
+        <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#F5EDE8', marginBottom: '8px' }}>Exporter mes données</h2>
+        <p style={{ fontSize: '13px', color: '#8C7570', marginBottom: '16px' }}>Télécharge tous tes highlights en format CSV.</p>
+        <ExportButton />
       </div>
     </div>
   )

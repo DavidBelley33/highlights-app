@@ -1,6 +1,5 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import ExportButton from '@/components/ExportButton'
 import LogoutButton from '@/components/LogoutButton'
 import WelcomePill from '@/components/WelcomePill'
 import ProfileAvatar from '@/components/ProfileAvatar'
@@ -47,10 +46,8 @@ export default function RootLayout({ children }) {
             <div className="hl-header-right">
               <a href="/categories" className="hl-nav-link hl-nav-hide-mobile">Catégories</a>
               <a href="/stats" className="hl-nav-link hl-nav-hide-mobile">Stats</a>
-              <span className="hl-nav-hide-mobile"><ExportButton /></span>
-              <span className="hl-nav-hide-mobile"><ProfileAvatar /></span>
               <span className="hl-nav-hide-mobile"><LogoutButton /></span>
-              <a href="/highlights/new" className="hl-cta">+ Nouveau</a>
+              <span className="hl-nav-hide-mobile"><ProfileAvatar /></span>
             </div>
           </div>
         </header>
@@ -62,6 +59,7 @@ export default function RootLayout({ children }) {
           <a href="/categories">🏷️ Catégories</a>
           <a href="/stats">📊 Stats</a>
           <a href="/highlights/new">✦ Nouveau</a>
+          <a href="/profile">👤 Profil</a>
         </nav>
       </body>
     </html>

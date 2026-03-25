@@ -42,11 +42,23 @@ export default function ExportButton() {
     <button
       onClick={handleExport}
       disabled={loading}
-      className="hl-nav-link"
-      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+      style={{
+        background: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '20px',
+        padding: '10px 20px',
+        fontSize: '14px',
+        fontWeight: 600,
+        color: '#F5EDE8',
+        cursor: loading ? 'not-allowed' : 'pointer',
+        opacity: loading ? 0.6 : 1,
+        transition: 'background 0.2s ease',
+      }}
+      onMouseOver={(e) => { if (!loading) e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+      onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
       title="Exporter mes données en CSV"
     >
-      {loading ? '...' : '↓ Export'}
+      {loading ? 'Export en cours…' : '↓ Télécharger CSV'}
     </button>
   )
 }
