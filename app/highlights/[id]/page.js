@@ -16,6 +16,8 @@ export default function HighlightDetailPage() {
   const [deleting, setDeleting] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [editingCategory, setEditingCategory] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [photoToDelete, setPhotoToDelete] = useState(null)
 
   useEffect(() => {
     Promise.all([getHighlight(id), getCategories()])
@@ -25,19 +27,19 @@ export default function HighlightDetailPage() {
   }, [id, router])
 
   async function handleDelete() {
-    if (!confirm('Supprimer ce highlight ?')) return
     setDeleting(true)
     await deleteHighlight(id)
     router.push('/')
   }
 
-  async function handleDeletePhoto(photo) {
-    if (!confirm('Supprimer cette photo ?')) return
-    await deletePhoto(photo.id, photo.storage_path)
+  async function handleDeletePhoto() {
+    if (!photoToDelete) return
+    await deletePhoto(photoToDelete.id, photoToDelete.storage_path)
     setHighlight((h) => ({
       ...h,
-      highlight_photos: h.highlight_photos.filter((p) => p.id !== photo.id),
+      highlight_photos: h.highlight_photos.filter((p) => p.id !== photoToDelete.id),
     }))
+    setPhotoToDelete(null)
   }
 
   async function handleCategoryChange(val) {
@@ -133,7 +135,7 @@ export default function HighlightDetailPage() {
                     onClick={() => setLightbox(url)}
                   />
                   <button
-                    onClick={() => handleDeletePhoto(photo)}
+                    onClick={() => setPhotoToDelete(photo)}
                     className="absolute right-2 top-2 hidden rounded-full bg-black/60 px-2 py-0.5 text-xs text-white group-hover:block hover:bg-red-900"
                   >
                     ✕
@@ -154,13 +156,41 @@ export default function HighlightDetailPage() {
           Modifier
         </a>
         <button
-          onClick={handleDelete}
+          onClick={() => setShowDeleteModal(true)}
           disabled={deleting}
           className="rounded-full border border-red-900 px-5 py-2 text-sm text-red-500 hover:bg-red-950/40 disabled:opacity-50 transition-colors"
         >
           {deleting ? 'Suppression…' : 'Supprimer'}
         </button>
       </div>
+
+      {/* Modale suppression highlight */}
+      {showDeleteModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '24px' }}>
+          <div style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', maxWidth: '380px', width: '100%' }}>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: '#F5EDE8', marginBottom: '8px' }}>Supprimer ce highlight ?</p>
+            <p style={{ fontSize: '14px', color: '#8C7570', marginBottom: '24px' }}>Cette action est irréversible.</p>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button onClick={() => setShowDeleteModal(false)} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#F5EDE8', cursor: 'pointer' }}>Annuler</button>
+              <button onClick={handleDelete} style={{ background: 'linear-gradient(135deg, #c0392b, #7b1e1e)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#FAE8D0', cursor: 'pointer' }}>Supprimer</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modale suppression photo */}
+      {photoToDelete && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '24px' }}>
+          <div style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', maxWidth: '380px', width: '100%' }}>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: '#F5EDE8', marginBottom: '8px' }}>Supprimer cette photo ?</p>
+            <p style={{ fontSize: '14px', color: '#8C7570', marginBottom: '24px' }}>Cette action est irréversible.</p>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button onClick={() => setPhotoToDelete(null)} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#F5EDE8', cursor: 'pointer' }}>Annuler</button>
+              <button onClick={handleDeletePhoto} style={{ background: 'linear-gradient(135deg, #c0392b, #7b1e1e)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#FAE8D0', cursor: 'pointer' }}>Supprimer</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox */}
       {lightbox && (
