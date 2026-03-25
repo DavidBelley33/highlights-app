@@ -15,6 +15,7 @@ export default function CategoriesPage() {
   const [editLabel, setEditLabel] = useState('')
   const [editEmoji, setEditEmoji] = useState('')
   const [editDesc, setEditDesc] = useState('')
+  const [confirmDelete, setConfirmDelete] = useState(null) // cat object à supprimer
 
   useEffect(() => {
     getCategories().then(setCategories).finally(() => setLoading(false))
@@ -56,10 +57,11 @@ export default function CategoriesPage() {
     }
   }
 
-  async function handleDelete(cat) {
-    if (!confirm(`Supprimer la catégorie "${cat.label}" ?`)) return
-    await deleteCategory(cat.id)
-    setCategories((prev) => prev.filter((c) => c.id !== cat.id))
+  async function handleDelete() {
+    if (!confirmDelete) return
+    await deleteCategory(confirmDelete.id)
+    setCategories((prev) => prev.filter((c) => c.id !== confirmDelete.id))
+    setConfirmDelete(null)
   }
 
   const inputStyle = {
@@ -214,7 +216,7 @@ export default function CategoriesPage() {
                     ✎ Modifier
                   </button>
                   <button
-                    onClick={() => handleDelete(cat)}
+                    onClick={() => setConfirmDelete(cat)}
                     style={{ background: 'none', border: 'none', fontSize: '13px', color: '#8C7570', cursor: 'pointer', padding: '4px 8px', borderRadius: '6px', transition: 'color 0.15s ease' }}
                     onMouseOver={(e) => e.target.style.color = '#f87171'}
                     onMouseOut={(e) => e.target.style.color = '#8C7570'}
@@ -225,6 +227,34 @@ export default function CategoriesPage() {
               )}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* ── Modale confirmation suppression ── */}
+      {confirmDelete && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '24px' }}>
+          <div style={{ background: '#1A1A1A', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '28px', maxWidth: '380px', width: '100%' }}>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: '#F5EDE8', marginBottom: '8px' }}>
+              Supprimer cette catégorie ?
+            </p>
+            <p style={{ fontSize: '14px', color: '#8C7570', marginBottom: '24px' }}>
+              "{confirmDelete.label}" sera supprimée définitivement. Les highlights associés ne seront pas supprimés.
+            </p>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setConfirmDelete(null)}
+                style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#F5EDE8', cursor: 'pointer' }}
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleDelete}
+                style={{ background: 'linear-gradient(135deg, #c0392b, #7b1e1e)', border: 'none', borderRadius: '10px', padding: '10px 18px', fontSize: '14px', fontWeight: 600, color: '#FAE8D0', cursor: 'pointer' }}
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
