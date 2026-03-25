@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import LogoutButton from '@/components/LogoutButton'
 import WelcomePill from '@/components/WelcomePill'
 import ProfileAvatar from '@/components/ProfileAvatar'
+import NewHighlightFAB from '@/components/NewHighlightFAB'
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
@@ -54,6 +55,7 @@ export default function RootLayout({ children }) {
         <main className="hl-main">
           {children}
         </main>
+        <NewHighlightFAB />
         <nav className="hl-mobile-nav">
           <a href="/">🏠 Accueil</a>
           <a href="/categories">🏷️ Catégories</a>
