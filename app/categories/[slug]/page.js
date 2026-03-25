@@ -88,6 +88,11 @@ export default function CategoryDetailPage() {
             <h1 style={{ fontSize: '28px', fontWeight: 700, color: '#F5EDE8', margin: 0, lineHeight: 1.2 }}>
               {category.label}
             </h1>
+            {category.description && (
+              <p style={{ fontSize: '14px', color: '#8C7570', marginTop: '4px', marginBottom: '2px' }}>
+                {category.description}
+              </p>
+            )}
             <p style={{ fontSize: '14px', color: '#8C7570', marginTop: '4px' }}>
               {highlights.length} highlight{highlights.length !== 1 ? 's' : ''}
             </p>
